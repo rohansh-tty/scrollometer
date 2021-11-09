@@ -1,0 +1,16 @@
+{
+    "name": "scrollometer",
+    "description": "Measure your scroll",
+    "version": "1.0",
+    "manifest_version": 3,
+    "content_scripts": [
+        {
+            "js": ["content-script.js"],
+            "matches": ["<all_urls>"]
+        }],
+    "permissions": ["tabs"],
+    "action": {
+        "default_popup": "popup.html"
+    }
+    
+}
