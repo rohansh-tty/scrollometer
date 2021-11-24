@@ -11,7 +11,6 @@ document.addEventListener('scroll', function(){
 
     console.log('st, sh', st, sh);
 
-    // var percent = (h[st]||b[st]) / ((h[sh]||b[sh]) - h.clientHeight) * 100;
     var scrollTop = window.pageYOffset || (document.documentElement || document.body.parentNode || document.body).scrollTop
     lastElement = scrollLength.slice(-1)[0];
     // if currentElement > lastElement, only then add it to array
@@ -50,9 +49,3 @@ document.addEventListener('scroll', function(){
     console.log('Scrollometer:->>>', scrollLength_in_mtrs, 'meters');
 		
 });
-
-
-
-// xano endpoint
-let xanoURL = new this.URL();
-
