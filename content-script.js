@@ -2,6 +2,9 @@ var scrollLength = [0]
 var myHeaders = new Headers();
 
 
+// const { performance } = require('perf_hooks');
+
+
 document.addEventListener('scroll', function(){
 
     var h = document.documentElement, 
@@ -10,7 +13,7 @@ document.addEventListener('scroll', function(){
         sh = 'scrollHeight';
 
     console.log('st, sh', st, sh);
-
+    var startTime = performance.now()
     var scrollTop = window.pageYOffset || (document.documentElement || document.body.parentNode || document.body).scrollTop
     lastElement = scrollLength.slice(-1)[0];
     // if currentElement > lastElement, only then add it to array
@@ -19,7 +22,7 @@ document.addEventListener('scroll', function(){
         scrollLength.push(scrollTop);
     }
     max_value = Math.max.apply(Math, scrollLength);
-    scrollLength_in_mtrs = max_value * 0.0002645833;
+    scroll_in_mtrs = max_value * 0.0002645833;
     
     host = window.location.hostname;
     console.log('host', host);
@@ -27,25 +30,21 @@ document.addEventListener('scroll', function(){
     // var timestamp = Date(new Date()); // current time as number
 
 
-    var stats_data = [[1, 20, host, scrollLength_in_mtrs]]
+    var endTime = performance.now();
+    time_spent = endTime - startTime;
     // // next would be to show the scroll stats realtime on popup page.
 
-    // // POST scroll data back to Google Sheet
-    // var myHeaders = new Headers();
-    // myHeaders.append("Content-Type", "application/json");
-    // var requestOptions = {
-    //     method: "post",
-    //     headers: myHeaders,
-    //     redirect: "follow",
-    //     body: JSON.stringify(stats_data)
-    // };
+  
+    console.log('Scrollo:->>>', scroll_in_mtrs, 'meters');
+    // console.log('speed:->>>', scroll_in_mtrs/time_spent, 'mtrs/sec');
+    // console.log('time:->>>', time_spent, 'ms');
+
+    chrome.runtime.sendMessage({scroll: scroll_in_mtrs}, (response)=>{
+        console.log('scrollength-content_script.js', response);
+    })
+
+
     
-    // fetch("https://v1.nocodeapi.com/gilf641/google_sheets/lLlefmIJOSPuLxtd?tabId=Sheet1", requestOptions)
-    //     .then(response => response.text())
-    //     .then(result => console.log(result))
-    //     .catch(error => console.log('error', error));
+    print('updateing')
 
-
-    console.log('Scrollometer:->>>', scrollLength_in_mtrs, 'meters');
-		
 });
