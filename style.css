@@ -1,8 +1,4 @@
-body {
-  width: 330px;
-  height: 475px;
-  border-radius: 12px;
-}
+
 
 .popup {
   background: #fff;
@@ -12,23 +8,6 @@ body {
   border-radius: 12px;
 }
 
-.reality-check {
-  position: static;
-  width: 286px;
-  height: 136px;
-  left: 0px;
-  top: 22px;
-
-  /* background: url(.png); */
-  /* border-radius: 8px; */
-
-  /* Inside Auto Layout */
-
-  flex: none;
-  order: 1;
-  flex-grow: 0;
-  margin: 8px 0px;
-}
 
 .topbar {
   display: flex;
@@ -44,21 +23,16 @@ body {
   border-radius: 12px 12px 0px 0px;
 }
 
-hr {
-  position: static;
-  width: 328px;
-  height: 0px;
-  left: 0px;
-  top: 51px;
+.topbar-text {
+  font-family: Gilroy-Bold;
+  font-size: 26px;
+  line-height: 140%;
+  /* or 19px */
 
-  border: 1px solid #e8e8e8;
+  display: flex;
+  align-items: center;
 
-  /* Inside Auto Layout */
-
-  flex: none;
-  order: 1;
-  flex-grow: 0;
-  margin: 16px 0px;
+  color: #2b4bf2;
 }
 
 .speed-box {
@@ -85,6 +59,25 @@ hr {
   line-height: 120%;
 }
 
+.speed-text {
+  font-family: Gilroy-Medium;
+  font-size: 12px;
+  line-height: 120%;
+  /* identical to box height, or 12px */
+
+  display: flex;
+  align-items: center;
+
+  color: black;
+
+  /* Inside Auto Layout */
+
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+  margin: 10px 0px;
+}
+
 .time-box {
   display: flex;
   flex-direction: column;
@@ -109,6 +102,25 @@ hr {
   line-height: 120%;
 }
 
+.time-text {
+  font-family: Gilroy-Medium;
+  font-size: 12px;
+  line-height: 120%;
+  /* identical to box height, or 12px */
+
+  display: flex;
+  align-items: center;
+
+  color: black;
+
+  /* Inside Auto Layout */
+
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+  margin: 10px 0px;
+}
+
 .scroll-box {
   display: flex;
 
@@ -120,7 +132,7 @@ hr {
   align-items: center;
   justify-content: center;
 
-  background: #2b4bf2;
+  background: #f9f9fa;
   border-radius: 8px;
 
   left: 50px;
@@ -131,5 +143,23 @@ hr {
   font-family: Gilroy-Bold;
   font-size: 48px;
   line-height: 120%;
+}
 
+.scroll-text {
+  font-family: Gilroy-Medium;
+  font-size: 12px;
+  line-height: 120%;
+  /* identical to box height, or 12px */
+
+  display: flex;
+  align-items: center;
+
+  color: black;
+
+  /* Inside Auto Layout */
+
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+  margin: 10px 0px;
 }
