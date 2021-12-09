@@ -29,26 +29,31 @@ document.addEventListener('scroll', function(){
       
     // startTime = customStartTime || parseInt(localStorage.getItem('startTime') || Date.now());
     // NEED TO FIX TIME PART
-    var currentTimestamp = performance.now();
-    var lastTimestamp = timeStampArray.slice(-1)[0];
-    // if (currentTimestamp > lastTimestamp){
-    timeStampArray.push(currentTimestamp);
     
-    var total_time_spent = timeSpent(lastTimestamp, lastReloadTimestamp);
+  
+    
+    var total_time_spent = (function(){"use strict";
+        // var secondsSpentElement = document.getElementById("seconds-spent");
+        // var millisecondsSpentElement = document.getElementById("milliseconds-spent");
+        requestAnimationFrame(function updateTimeSpent(){
+            var timeNow = performance.now();
+            var secondsSpentElement = round(timeNow/1000/60);
+            console.log('Seconds Spent>>>>>>', secondsSpentElement);
+            requestAnimationFrame(updateTimeSpent);
+        });
+        var performance = window.performance, round = Math.round;
+        
+        })();
 
-    console.log('Scrollo:->>>', scroll_in_mtrs, 'meters');
+    // console.log('Scrollo:->>>', scroll_in_mtrs, 'meters');
     console.log('TimeSpent:-->>>', total_time_spent);
     chrome.runtime.sendMessage({scroll: scroll_in_mtrs}, (response)=>{
         console.log('scrollength-content_script.js', response);
     })
-});
-
-
-
-function  timeSpent(timestamp1, timestamp2) {
-    var difference = timestamp1 - timestamp2;
-    var minutesDifference = Math.floor(difference/1000/60);
-
-    return minutesDifference;
 }
+);
+
+
+
+
 
