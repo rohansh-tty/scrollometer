@@ -1,17 +1,17 @@
-console.log('Inside popup.js');
+console.log("Inside popup.js");
 
+chrome.storage.local.get(["scroll"], function (result) {
+  console.log("result: ", result.scroll);
+  let values = Object.values(result.scroll);
 
+  chrome.tabs.query(
+    { active: true, currentWindow: true },
+    async function (tabs) {
+      console.log("tab: ", tabs[0]);
 
-chrome.runtime.onMessage.addListener(function (message, sender, sendResponse){
-    scroll_ = message.scroll;
-    speed_ = message.speed;
-    time_ = message.time;
-    
-    console.log('scroll length-popup', scroll_ ) ;
-
-    var date = new Date().toLocaleTimeString();
-    document.getElementById('scroll').innerHTML = scroll_.toFixed(4);
-    
-    // // update text below scroll
-    // document.getElementById('scroll-text').innerHTML = "Total Scrolled::Updated Last on ${date}";
-})
+      let url = new URL(tabs[0].url);
+      console.log("host: ", url.hostname);
+      console.log("value: ", result.scroll[url.hostname]);
+    }
+  );
+});
