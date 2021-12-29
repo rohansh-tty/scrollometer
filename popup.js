@@ -1,9 +1,11 @@
 console.log("Inside popup.js");
 
+
 chrome.storage.local.get(["scroll"], function (result) {
   console.log("result: ", result.scroll);
   let values = Object.values(result.scroll);
 
+  // getting the value one time need to fix with realtime solution
   chrome.tabs.query(
     { active: true, currentWindow: true },
     async function (tabs) {
@@ -15,3 +17,10 @@ chrome.storage.local.get(["scroll"], function (result) {
     }
   );
 });
+
+chrome.runtime.onMessage.addListener(function(message, sender, sendResponse){
+  console.log(message);
+  document.getElementById('scroll-value').value=message;
+  console.log(sender);
+  }
+);

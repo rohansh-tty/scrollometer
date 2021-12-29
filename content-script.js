@@ -23,9 +23,10 @@ document.addEventListener("scroll", function () {
     console.log("result: ", result.scroll);
 
     let obj = result.scroll;
+    console.log('scorll y', maxScrollY)
     obj[host] = maxScrollY;
 
-    console.log("obj: ", obj);
+    // console.log("obj: ", obj);
 
     chrome.storage.local.set({ scroll: obj });
 
@@ -38,54 +39,21 @@ document.addEventListener("scroll", function () {
         scroll_value: maxScrollY,
       },
     ]);
-
     if (error) console.log("error: ", error);
+
+    // console.log('upsert data', data)
+
+
+    let { data: Scroll, select_error } = await supabaseClient.from('Scroll').select('*').eq('host', host);
+    console.log('read_data', data);
+
+    scroll_value = data[0].scroll_value;
+
+    chrome.runtime.sendMessage(scroll_value, (scroll_value) => {
+      console.log("scroll value", scroll_value)
+    })
+
+    if (error) console.log("error: ", select_error);
   });
 
-  //   var scrollTop =
-  //     window.pageYOffset ||
-  //     (document.documentElement || document.body.parentNode || document.body)
-  //       .scrollTop;
-  //   lastElement = scrollLength.slice(-1)[0];
-  //   if (scrollTop > lastElement) {
-  //     // this is to make sure that the scroll stat doesn't reduce on scrolling up*
-  //     scrollLength.push(scrollTop);
-  //   }
-  //   max_value = Math.max.apply(Math, scrollLength);
-  //   scroll_in_mtrs = max_value * 0.0002645833;
-
-  //   var lastReloadTimestamp = new Date(document.lastModified).getTime();
-
-  //   host = window.location.hostname;
-
-  // WILL HAVE TO FIX TIME ISSUE!!!  //
-  //   if (performance.getEntriesByType("navigation")[0].type == "reload") {
-  //     console.info("This page is reloaded");
-  //     var customStartTime = new Date().getSeconds();
-  //   } else {
-  //     console.info("This page is not reloaded");
-  //   }
-
-  // startTime = customStartTime || parseInt(localStorage.getItem('startTime') || Date.now());
-  // NEED TO FIX TIME PART
-
-  //   var total_time_spent = (function () {
-  //     "use strict";
-  //     // var secondsSpentElement = document.getElementById("seconds-spent");
-  //     // var millisecondsSpentElement = document.getElementById("milliseconds-spent");
-  //     requestAnimationFrame(function updateTimeSpent() {
-  //       var timeNow = performance.now();
-  //       var secondsSpentElement = round(timeNow / 1000 / 60);
-  //       console.log("Seconds Spent>>>>>>", secondsSpentElement);
-  //       requestAnimationFrame(updateTimeSpent);
-  //     });
-  //     var performance = window.performance,
-  //       round = Math.round;
-  //   })();
-
-  // console.log('Scrollo:->>>', scroll_in_mtrs, 'meters');
-  //   console.log("TimeSpent:-->>>", total_time_spent);
-  //   chrome.runtime.sendMessage({ scroll: scroll_in_mtrs }, (response) => {
-  //     console.log("scrollength-content_script.js", response);
-  //   });
 });

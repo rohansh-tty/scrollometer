@@ -1,1 +1,1 @@
-// chrome.storage.local.set({ scroll: {} });
+chrome.storage.local.set({ scroll: {} });
