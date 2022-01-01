@@ -14,19 +14,14 @@ document.addEventListener("scroll", function () {
 
   let scrollY = window.scrollY;
   maxScrollY = Math.max(scrollY, maxScrollY);
-  console.log("scrollY: ", maxScrollY);
 
   let host = window.location.hostname;
-  console.log("host: ", host);
 
   chrome.storage.local.get("scroll", async function (result) {
-    console.log("result: ", result.scroll);
 
     let obj = result.scroll;
-    console.log('scorll y', maxScrollY)
     obj[host] = maxScrollY;
 
-    // console.log("obj: ", obj);
 
     chrome.storage.local.set({ scroll: obj });
 
@@ -41,15 +36,16 @@ document.addEventListener("scroll", function () {
     ]);
     if (error) console.log("error: ", error);
 
-    // console.log('upsert data', data)
 
-
+    // : {id: 78879, created_at: '2022-01-01T05:12:44.088678+00:00', host: 'www.wionews.com', scroll_value: 7672, session_id: 'www.wionews.com#2022/01/01'}
+    // length: 1
+     
     let { data: Scroll, select_error } = await supabaseClient.from('Scroll').select('*').eq('host', host);
-    console.log('read_data', data);
 
     scroll_value = data[0].scroll_value;
+    host_name = data[0].host;
 
-    chrome.runtime.sendMessage(scroll_value, (scroll_value) => {
+    chrome.runtime.sendMessage({scroll: scroll_value, host: host_name}, (scroll_value) => {
       console.log("scroll value", scroll_value)
     })
 

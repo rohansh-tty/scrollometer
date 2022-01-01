@@ -19,8 +19,22 @@ chrome.storage.local.get(["scroll"], function (result) {
 });
 
 chrome.runtime.onMessage.addListener(function(message, sender, sendResponse){
-  console.log(message);
-  document.getElementById('scroll-value').value=message;
+  const scroll_element = document.getElementById('scroll-value');
+  const host_element = document.getElementById('host-name');
+  console.log('host element', host_element);
+
+  
+  // console.log('scroll element', scroll_element);
+  // console.log('scroll value from CS', message.scroll);
+  console.log('host name from CS', message.host);
+
+  scroll_element.innerHTML = message.scroll;
+  host_element.innerHTML = message.host;
+
+
+
+  
+
   console.log(sender);
   }
 );
