@@ -1,13 +1,13 @@
 
 
 .popup {
-  background: #fff;
-  width: 330px;
-  height: 485px;
-  box-shadow: 0px 0px 36px rgb(243 199 199 / 16%);
-  border-radius: 12px;
-  border-collapse: collapse;
-  overflow-x: hidden;
+  background: #221f1f;
+    width: 331px;
+    height: 482px;
+    box-shadow: 0px 0px 36px rgb(243 199 199 / 16%);
+    border-radius: 10px;
+    border-collapse: collapse;
+    overflow-x: hidden;
 
 }
 
@@ -30,7 +30,6 @@
   font-family: Sans;
   font-size: 27px;
   line-height: 140%;
-  
 
   display: flex;
   align-items: center;
@@ -170,24 +169,42 @@
 
 .host-box {
   display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 12px;
+    left: 170px;
+    top: 405px;
+    right: 60px;
+    bottom: 104px;
+    position: absolute;
+    width: 115px;
+    height: 37px;
+    background: #fff;
+    border-radius: 8px;
+    font-family: sans-serif;
+    font-size: 16px;
+    line-height: 120%;
+}
+
+
+
+.dashboard-box {
+  display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   padding: 12px;
-
-  left: 170px;
-  top: 308px;
-  right: 60px;
+  left: 20px;
+  top: 405px;
+  right: 70px;
   bottom: 107px;
-
   position: absolute;
-  width: 115px;
-  height: 100px;
-
+  width: 116px;
+  height: 36px;
   background: #fff;
   border-radius: 8px;
-
   font-family: sans-serif;
-  font-size: 16px;
+  font-size: 13px;
   line-height: 120%;
 }
