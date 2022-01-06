@@ -1,7 +1,77 @@
 
 
-.popup {
-  background: #221f1f;
+@font-face {
+  font-family: 'Gilroy-Light';
+    src: 
+        url('fonts/Gilroy-Light.woff2') format('woff2'), /* Super Modern Browsers */
+        url('fonts/Gilroy-Light.woff') format('woff'), /* Pretty Modern Browsers */
+        url('fonts/Gilroy-Light.ttf')  format('truetype'), /* Safari, Android, iOS */
+        url('fonts/Gilroy-Light.svg#svgFontName') format('svg'); /* Legacy iOS */
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+
+
+@font-face {
+  font-family: 'Gilroy-Bold';
+    src: 
+        url('fonts/Gilroy-Bold.woff2') format('woff2'), /* Super Modern Browsers */
+        url('fonts/Gilroy-Bold.woff') format('woff'), /* Pretty Modern Browsers */
+        url('fonts/Gilroy-Bold.ttf')  format('truetype'), /* Safari, Android, iOS */
+        url('fonts/Gilroy-Bold.svg#svgFontName') format('svg'); /* Legacy iOS */
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+
+
+
+
+@font-face {
+font-family: 'Gilroy-Medium';
+  src: 
+      url('fonts/Gilroy-Medium.woff2') format('woff2'), /* Super Modern Browsers */
+      url('fonts/Gilroy-Medium.woff') format('woff'), /* Pretty Modern Browsers */
+      url('fonts/Gilroy-Medium.ttf')  format('truetype'), /* Safari, Android, iOS */
+      url('fonts/Gilroy-Medium.svg#svgFontName') format('svg'); /* Legacy iOS */
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+
+@font-face {
+font-family: 'Gilroy-Regular';
+src: 
+  url('fonts/Gilroy-Regular.woff2') format('woff2'), /* Super Modern Browsers */
+  url('fonts/Gilroy-Regular.woff') format('woff'), /* Pretty Modern Browsers */
+  url('fonts/Gilroy-Regular.ttf')  format('truetype'), /* Safari, Android, iOS */
+  url('fonts/Gilroy-Regular.svg#svgFontName') format('svg'); /* Legacy iOS */
+font-weight: 400;
+font-style: normal;
+font-display: swap;
+}
+
+
+@font-face {
+font-family: 'Gilroy-SemiBold';
+  src: 
+      url('fonts/Gilroy-SemiBold.woff2') format('woff2'), /* Super Modern Browsers */
+      url('fonts/Gilroy-SemiBold.woff') format('woff'), /* Pretty Modern Browsers */
+      url('fonts/Gilroy-SemiBold.ttf')  format('truetype'), /* Safari, Android, iOS */
+      url('fonts/Gilroy-SemiBold.svg#svgFontName') format('svg'); /* Legacy iOS */
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+
+
+
+
+  .popup {
+  background: #ffffff;
     width: 331px;
     height: 482px;
     box-shadow: 0px 0px 36px rgb(243 199 199 / 16%);
@@ -27,13 +97,11 @@
 }
 
 .topbar-text {
-  font-family: Sans;
-  font-size: 27px;
-  line-height: 140%;
-
+  font-family: "Gilroy-Medium";
+  font-size: 20px;
+  line-height: 80;
   display: flex;
   align-items: center;
-
   color: #2b4bf2;
 }
 
@@ -53,17 +121,17 @@
   width: 115px;
   height: 100px;
 
-  background: #fff;
+  background: #E5EAFF;
   border-radius: 8px;
 
-  font-family: sans-serif;
+  font-family:"Gilroy-Bold";
   font-size: 36px;
   line-height: 120%;
 }
 
 .speed-text {
-  font-family: sans-serif;
-  font-size: 10px;
+  font-family:"Gilroy-Medium";
+  font-size: 12px;
   line-height: 120%;
   /* identical to box height, or 12px */
 
@@ -96,17 +164,17 @@
   width: 115px;
   height: 100px;
 
-  background: #fff;
+  background: #E5EAFF;
   border-radius: 8px;
 
-  font-family: sans-serif;
+  font-family:"Gilroy-Bold";
   font-size: 36px;
   line-height: 120%;
 }
 
 .time-text {
-  font-family: sans-serif;
-  font-size: 10px;
+  font-family:"Gilroy-Medium";
+  font-size: 12px;
   line-height: 120%;
   /* identical to box height, or 12px */
 
@@ -134,7 +202,7 @@
   align-items: center;
   justify-content: center;
 
-  background: #fff;
+  background: #ffffff;
   border-radius: 8px;
 
   left: 65px;
@@ -142,20 +210,20 @@
   right: 20px;
   bottom: 347px;
 
-  font-family: sans-serif;
+  font-family:"Gilroy-Bold";
   font-size: 48px;
   line-height: 120%;
+  color: #2B4BF2;
 }
 
 .scroll-text {
-  font-family: sans-serif;
-  font-size: 10px;
+  font-family:"Gilroy-Medium";
+  font-size: 12px;
   line-height: 120%;
   /* identical to box height, or 12px */
 
   display: flex;
   align-items: center;
-
   color: black;
 
   /* Inside Auto Layout */
@@ -179,10 +247,10 @@
     bottom: 104px;
     position: absolute;
     width: 115px;
-    height: 37px;
+    height: 37px; 
     background: #fff;
     border-radius: 8px;
-    font-family: sans-serif;
+    font-family:"Gilroy-Medium";
     font-size: 16px;
     line-height: 120%;
 }
@@ -204,7 +272,8 @@
   height: 36px;
   background: #fff;
   border-radius: 8px;
-  font-family: sans-serif;
+  font-family:"Gilroy-Medium";
   font-size: 13px;
   line-height: 120%;
 }
+
