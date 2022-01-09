@@ -28,7 +28,7 @@ window.onload = () => {
     const time_box_element =document.getElementById("time-box-value");
     time_box_element.innerHTML = minute + "minutes" + seconds + "seconds";
 
-    var time_dict = {hour: hour, minute: minute, seconds: seconds};
+    let time_dict = {hour: hour, minute: minute, seconds: seconds};
     var time_array = [hour, minute, seconds];
     chrome.runtime.sendMessage({"type": "time_spent", time_taken: time_dict}, (time_dict) => {
       console.log("time_dict", time_dict);
