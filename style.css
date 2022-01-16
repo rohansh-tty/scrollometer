@@ -125,7 +125,7 @@ font-family: 'Gilroy-SemiBold';
   border-radius: 8px;
 
   font-family:"Gilroy-Bold";
-  font-size: 36px;
+  font-size: 26px;
   line-height: 120%;
 }
 
@@ -145,7 +145,7 @@ font-family: 'Gilroy-SemiBold';
   flex: none;
   order: 1;
   flex-grow: 0;
-  margin: 10px 0px;
+  margin: 2px 0px;
 }
 
 .time-box {
@@ -190,6 +190,20 @@ font-family: 'Gilroy-SemiBold';
   flex-grow: 0;
   margin: 10px 0px;
 }
+
+.time-value {
+  font-size: 10px;
+  width: 109px;
+  left: 48px;
+  top: 208px;
+  right: 170px;
+  bottom: 207px;
+  font-family: "Gilroy-Bold";
+  font-size: 26px;
+  line-height: 120%;
+  text-align: bottom;
+}
+
 
 .scroll-box {
   display: flex;

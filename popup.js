@@ -1,47 +1,52 @@
 
+function round(value, decimals) {
+  return Number(Math.round(value+'e'+decimals)+'e-'+decimals);
+}
+
+
 chrome.storage.local.get(["scroll"], function (result) {
-  console.log("result: ", result.scroll);
+  console.log("result in popup.js: ", result.scroll);
   let values = Object.values(result.scroll);
 
   // getting the value one time need to fix with realtime solution
   chrome.tabs.query(
     { active: true, currentWindow: true },
     async function (tabs) {
-      // console.log("tab: ", tabs[0]);
-
       let url = new URL(tabs[0].url);
-      // console.log("host: ", url.hostname);
-      // console.log("value: ", result.scroll[url.hostname]);
     }
   );
 });
 
 chrome.runtime.onMessage.addListener(function(message, sender, sendResponse){
   const scroll_element = document.getElementById('scroll-value');
-
-
+  const speed_element = document.getElementById('speed-value');
   const host_element = document.getElementById('host-name');
-  const time_box_element = document.getElementById('time-box-value');
+  const time_box_element = document.getElementById('time-value');
+  
+  var milliseconds = message.time_spent;
 
-  
-  // console.log('scroll element', scroll_element);
-  // console.log('scroll value from CS', message.scroll);
-  console.log('host name from CS', message.host);
+  var hh = Math.floor(milliseconds / 1000 / 60 / 60);
+  milliseconds -= hh * 1000 * 60 * 60;
+  var mm = Math.floor(milliseconds / 1000 / 60);
+  milliseconds -= mm * 1000 * 60;
+  var ss = Math.floor(milliseconds / 1000);
+  milliseconds -= ss * 1000;
 
-  if (message.type == "scroll") {
-    // console.log('message type is scroll');
-    scroll_element.innerHTML = message.scroll;
-    host_element.innerHTML = message.host;}
-  else if (message.type == "time_spent"){
-    // console.log('message type is time spent');
-    seconds = message.time_taken.seconds;
-    console.log('time spent seconds >>>>>>', seconds);
-    time_box_element.innerHTML = seconds;
-  }
-  
 
-  
-  
-  console.log('sender', sender);
+   //speed caluclation
+   total_seconds = mm*60 + ss;
+   speed = round(message.scroll/total_seconds, 3);
+
+
+  var pad_hh = hh.toString().padStart(2, '0');
+  var pad_mm = mm.toString().padStart(2, '0');
+  var pad_ss = ss.toString().padStart(2, '0');
+
+  let currentTime = pad_hh + ":" + pad_mm + ":" + pad_ss;
+  scroll_element.innerHTML = message.scroll;
+  speed_element.innerHTML = speed;
+  host_element.innerHTML = message.host;
+  time_box_element.innerHTML = currentTime;
+
   }
 );
