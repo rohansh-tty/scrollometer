@@ -16,28 +16,41 @@ const supabaseClient = supabase.createClient(
 document.addEventListener("scroll", function () {
   console.log("[CS] Scrolling..");
   let scrollY = window.scrollY;
-  maxScrollY = Math.max(scrollY, maxScrollY);
+
+  // making sure that reverse scrolling doesn't eat down 
+  lastscroll = scrollLength.slice(-1)[0]
+  if (scrollY > lastscroll){
+    scrollLength.push(scrollY)
+  }
+
+
+  console.log('scrollY', scrollY, 'maxscrollY', maxScrollY)
+  // max can be Math.max(scrollY, maxScrollY) or Math.max.apply(Math, scrollLength)
+  maxScrollY =  Math.max.apply(Math, scrollLength) * 0.2646;
+  scroll_value = Math.round(maxScrollY)
   let host = window.location.hostname;
 
 
   chrome.storage.local.get("scroll", async function (result) {
 
     let obj = result.scroll;
-    obj[host] = maxScrollY;
+    obj[host] = scroll_value; // 1inch=96px, 1inch=25.4mm, mm=px*(25.4/96)
     chrome.storage.local.set({ scroll: obj });
 
     var date = new Date().toJSON().slice(0, 10).replace(/-/g, "/");
-
-    const { data, error } = await supabaseClient.from("Scroll").upsert([
+    
+    const { data, error } = await supabaseClient.from("Scroll_duplicate").upsert([
       {
         session_id: host + "#" + date,
         host: host,
-        scroll_value: maxScrollY,
+        scroll_value: scroll_value,
+        date_: date,
+        time_spent: 0
       },
     ]);
     if (error) console.log("error: ", error);
      
-    let { data: Scroll, select_error } = await supabaseClient.from('Scroll').select('*').eq('host', host);
+    let { data: Scroll, select_error } = await supabaseClient.from('Scroll_duplicate').select('*').eq('host', host);
     scroll_value = data[0].scroll_value;
     host_name = data[0].host;
 
@@ -69,6 +82,15 @@ document.addEventListener("scroll", function () {
 
     chrome.runtime.sendMessage({scroll: scroll_value, host: host_name, time_spent: milliseconds }, (scroll_value, host_name) => {
     })
+
+
+    // update time spent in supabase
+    session_id_date = new Date().toJSON().slice(0, 10).replace(/-/g, "/");
+    session_id_value = host + "#" + session_id_date;
+    console.log('milliss', milliseconds);
+    const { update_data, update_error } = await supabaseClient.from("Scroll_duplicate").update({time_spent: milliseconds}).eq('session_id', session_id_value);
+    if (error) console.log("error: ", error);
+
 
   });
 });

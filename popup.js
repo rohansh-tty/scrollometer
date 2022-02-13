@@ -19,6 +19,7 @@ chrome.storage.local.get(["scroll"], function (result) {
 
 chrome.runtime.onMessage.addListener(function(message, sender, sendResponse){
   const scroll_element = document.getElementById('scroll-value');
+  const scroll_text = document.getElementById('scroll-text')
   const speed_element = document.getElementById('speed-value');
   const host_element = document.getElementById('host-name');
   const time_box_element = document.getElementById('time-value');
@@ -33,6 +34,7 @@ chrome.runtime.onMessage.addListener(function(message, sender, sendResponse){
   milliseconds -= ss * 1000;
 
 
+
    //speed caluclation
    total_seconds = mm*60 + ss;
    speed = round(message.scroll/total_seconds, 3);
@@ -43,7 +45,9 @@ chrome.runtime.onMessage.addListener(function(message, sender, sendResponse){
   var pad_ss = ss.toString().padStart(2, '0');
 
   let currentTime = pad_hh + ":" + pad_mm + ":" + pad_ss;
-  scroll_element.innerHTML = message.scroll;
+  scroll_element.innerHTML = message.scroll + " m";
+  var curr_time = new Date();
+  scroll_text.innerHTML = "Updated Last on " + curr_time.toLocaleTimeString().split()[0];
   speed_element.innerHTML = speed;
   host_element.innerHTML = message.host;
   time_box_element.innerHTML = currentTime;
