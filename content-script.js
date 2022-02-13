@@ -26,14 +26,24 @@ supabaseClient.auth.onAuthStateChange((event, session) => {
 document.addEventListener("scroll", function () {
   console.log("[CS] Scrolling..");
   let scrollY = window.scrollY;
-  maxScrollY = Math.max(scrollY, maxScrollY);
+
+  // making sure that reverse scrolling doesn't eat down
+  lastscroll = scrollLength.slice(-1)[0];
+  if (scrollY > lastscroll) {
+    scrollLength.push(scrollY);
+  }
+
+  console.log("scrollY", scrollY, "maxscrollY", maxScrollY);
+  // max can be Math.max(scrollY, maxScrollY) or Math.max.apply(Math, scrollLength)
+  maxScrollY = Math.max.apply(Math, scrollLength) * 0.2646;
+  scroll_value = Math.round(maxScrollY);
   let host = window.location.hostname;
 
   console.log("host: ", host);
 
   chrome.storage.local.get(["scroll", "user_id_sm"], async function (result) {
     let obj = result.scroll;
-    obj[host] = maxScrollY;
+    obj[host] = scroll_value; // 1inch=96px, 1inch=25.4mm, mm=px*(25.4/96)
     chrome.storage.local.set({ scroll: obj });
 
     var date = new Date().toJSON().slice(0, 10).replace(/-/g, "/");
@@ -57,50 +67,5 @@ document.addEventListener("scroll", function () {
     } else {
       // TODO: Handle this case
     }
-
-    // let { data: Scroll, select_error } = await supabaseClient
-    //   .from("Scroll")
-    //   .select("*")
-    //   .eq("host", host);
-
-    // // console.log("data: ", Scroll);
-
-    // scroll_value = Scroll[0].scroll_value;
-    // host_name = Scroll[0].host;
-
-    // // get the start time, concat date with time
-    // start_time = Scroll[0].created_at;
-    // session_id = Scroll[0].session_id;
-    // date = session_id.split("#")[1];
-    // start_datetime = date.concat(" ", start_time);
-
-    // // get current date, concat date with time, using UTC time for easy calculations
-    // var curr_date = new Date();
-    // // to subtract timezone offset
-    // curr_date.setMinutes(
-    //   curr_date.getMinutes() + curr_date.getTimezoneOffset()
-    // );
-
-    // var dmy =
-    //   curr_date.getDate() +
-    //   "/" +
-    //   curr_date.getMonth() +
-    //   "/" +
-    //   curr_date.getYear();
-    // var curr_datetime = curr_date.toString();
-
-    // // to convert str to Date format
-    // var current = new Date(curr_datetime);
-    // var start = new Date(start_datetime);
-
-    // // get values in hh:mm:ss format
-    // var milliseconds = current.getTime() - start.getTime();
-
-    // if (select_error) console.log("error: ", select_error);
-
-    // chrome.runtime.sendMessage(
-    //   { scroll: scroll_value, host: host_name, time_spent: milliseconds },
-    //   (scroll_value, host_name) => {}
-    // );
   });
 });

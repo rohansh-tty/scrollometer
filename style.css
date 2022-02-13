@@ -206,6 +206,7 @@
 .scroll-text {
   font-family: "Gilroy-Medium";
   font-size: 12px;
+
   line-height: 120%;
 
   display: flex;
