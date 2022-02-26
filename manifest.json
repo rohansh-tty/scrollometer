@@ -9,7 +9,10 @@
       "matches": ["<all_urls>"]
     }
   ],
-  "permissions": ["tabs", "storage"],
+  "permissions": ["tabs", "storage", "cookies"],
+  "host_permissions": [
+    "https://scrollometerui.vercel.app/"
+  ],
   "action": {
     "default_popup": "popup.html"
   },
