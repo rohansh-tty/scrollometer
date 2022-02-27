@@ -12,14 +12,7 @@ const supabaseClient = supabase.createClient(
 
 supabaseClient.auth.onAuthStateChange((event, session) => {
     if ("SIGNED_IN" === event) {
-        console.log("Signed in....", supabaseClient.auth.user());
-
-        chrome.storage.local.set({ user_id_sm: session.user.id });
-        chrome.storage.local.set({ session_expiry: session.expires_at * 1000 });
-    } else if ("SIGNED_OUT" === event) {
-        console.log("Signed out....");
-
-        chrome.storage.local.set({ user_id_sm: null });
+        chrome.runtime.sendMessage("set_user_id");
     }
 });
 
@@ -42,9 +35,9 @@ document.addEventListener("scroll", function() {
     console.log("host: ", host);
 
     chrome.storage.local.get(["scroll", "user_id_sm"], async function(result) {
-        let obj = result.scroll;
-        obj[host] = scroll_value; // 1inch=96px, 1inch=25.4mm, mm=px*(25.4/96)
-        chrome.storage.local.set({ scroll: obj });
+        // let obj = result.scroll;
+        // obj[host] = scroll_value; // 1inch=96px, 1inch=25.4mm, mm=px*(25.4/96)
+        // chrome.storage.local.set({ scroll: obj });
 
         var date = new Date().toJSON().slice(0, 10).replace(/-/g, "/");
 
@@ -53,12 +46,18 @@ document.addEventListener("scroll", function() {
         if (result.user_id_sm) {
             console.log("date: ", date);
 
+            // const endTime = new Date();
+            // const startTime = new Date(data[0].created_time);
+            // const totalTime = endTime - startTime;
+
             const { data, error } = await supabaseClient.from("Scroll").upsert([{
                 session_id: host + "#" + date,
                 user_id: result.user_id_sm,
                 host: host,
                 scroll_value: maxScrollY,
                 created_date: date,
+                updated_time: new Date().toISOString()
+                    // total_time: totalTime
             }, ]);
             // if (data) console.log("data: ", data);
             if (error) console.log("error: ", error);
