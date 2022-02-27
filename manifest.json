@@ -1,19 +1,17 @@
 {
-  "name": "scrollometer",
-  "description": "Measure your scroll",
-  "version": "1.0",
-  "manifest_version": 3,
-  "content_scripts": [
-    {
-      "js": ["supabase.js", "content-script.js"],
-      "matches": ["<all_urls>"]
+    "name": "scrollometer",
+    "description": "Measure your scroll",
+    "version": "1.0",
+    "manifest_version": 3,
+    "content_scripts": [{
+        "js": ["supabase.js", "content-script.js"],
+        "matches": ["<all_urls>"]
+    }],
+    "permissions": ["tabs", "storage"],
+    "action": {
+        "default_popup": "popup.html"
+    },
+    "background": {
+        "service_worker": "background.js"
     }
-  ],
-  "permissions": ["tabs", "storage"],
-  "action": {
-    "default_popup": "popup.html"
-  },
-  "background": {
-    "service_worker": "background.js"
-  }
 }
